@@ -1,5 +1,6 @@
 import scrapy
 
+
 class Car(scrapy.Item):
     name = scrapy.Field()
     price = scrapy.Field()
@@ -45,7 +46,10 @@ class OtomotoSpider(scrapy.Spider):
         benz['name'] = response.xpath(name_xpath).get().strip()
 
         price_xpath = '//span[@class = "offer-price__number"]/text()'
-        benz['price'] = response.xpath(price_xpath).get().strip()
+        try:
+            benz['price'] = response.xpath(price_xpath).re(r"\d+")[0] + response.xpath(price_xpath).re(r"\d+")[1]
+        except:
+            benz['price'] = response.xpath(price_xpath).re_first(r"\d+")
 
         currency_xpath = '//span[@class = "offer-price__currency"]/text()'
         benz['currency'] = response.xpath(currency_xpath).get().strip()
@@ -57,16 +61,21 @@ class OtomotoSpider(scrapy.Spider):
         benz['prod_year'] = response.xpath(year_xpath).get().strip()
  
         mileage_xpath = '//span[contains(text(), "Przebieg")]/following-sibling::div/text()'
-        benz['mileage'] = response.xpath(mileage_xpath).get().strip()
-
+        try:
+            benz['mileage'] = response.xpath(mileage_xpath).re(r"\d+")[0] + response.xpath(mileage_xpath).re(r"\d+")[1]
+        except:
+            benz['mileage'] = response.xpath(mileage_xpath).re_first(r"\d+")
         fuel_xpath = '//span[contains(text(), "Rodzaj paliwa")]/following-sibling::div/a/text()'
         benz['fuel'] = response.xpath(fuel_xpath).get().strip()
 
         cubic_xpath = '//span[contains(text(), "Pojemność skokowa")]/following-sibling::div/text()'
-        benz['cubic_capacity'] = response.xpath(cubic_xpath).get().strip()
+        try:
+            benz['cubic_capacity'] = response.xpath(cubic_xpath).re(r"\d+")[0] + response.xpath(cubic_xpath).re(r"\d+")[1]
+        except:
+            benz['cubic_capacity'] = response.xpath(cubic_xpath).re_first(r"\d+")
 
         power_xpath = '//span[contains(text(), "Moc")]/following-sibling::div/text()'
-        benz['power'] = response.xpath(power_xpath).get().strip()
+        benz['power'] = response.xpath(power_xpath).re_first(r"\d+")
 
         gearbox_xpath = '//span[contains(text(), "Skrzynia biegów")]/following-sibling::div/a/text()'
         benz['gearbox'] = response.xpath(gearbox_xpath).get().strip()
