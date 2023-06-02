@@ -20,7 +20,7 @@ class Car(scrapy.Item):
 
 class OtomotoSpider(scrapy.Spider):
     name = "otomoto"
-    #allowed_domains = ["https://www.otomoto.pl/osobowe/"]
+    allowed_domains = ["otomoto.pl"]
 
     start_urls = ["https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/"]
                 #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=2"]
