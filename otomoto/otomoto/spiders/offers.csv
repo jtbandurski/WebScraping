@@ -1,3 +1,28 @@
 body_type,color,cubic_capacity,currency,doors_num,drive_type,fuel,gearbox,generation,mileage,name,power,price,prod_year,seats_num
 SUV,Czarny,2 987 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X166 (2012-),239 000 km,Mercedes-Benz GL 350 BlueTEC 4Matic 7G-TRONIC,258 KM,115 900,2013,7
+SUV,Czarny,2 987 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X166 (2012-),193 000 km,Mercedes-Benz GL 350 BlueTec 4-Matic,258 KM,163 999,2014,7
+SUV,Czarny,5 461 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X164 (2006-2012),178 000 km,Mercedes-Benz GL 500,388 KM,121 770,2012,7
+SUV,Biały,3 000 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),133 438 km,Mercedes-Benz GL,362 KM,89 000,2016,7
+SUV,Czarny,2 987 cm3,PLN,5,4x4 (stały),Diesel,Automatyczna,X166 (2012-),193 000 km,Mercedes-Benz GL 350 BlueTec 4-Matic,258 KM,169 000,2013,7
+SUV,Szary,4 663 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),141 000 km,Mercedes-Benz GL 450,340 KM,129 900,2013,7
+SUV,Inny kolor,4 663 cm3,PLN,5,4x4 (stały),Benzyna,Automatyczna,X166 (2012-),134 000 km,Mercedes-Benz GL 450,340 KM,126 900,2013,7
+SUV,Biały,5 461 cm3,PLN,5,4x4 (stały),Benzyna,Automatyczna,X166 (2012-),190 600 km,Mercedes-Benz GL 63 AMG,558 KM,98 000,2015,7
+SUV,Biały,2 987 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X166 (2012-),172 665 km,Mercedes-Benz GL,258 KM,199 999,2015,7
+SUV,Biały,2 987 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X164 (2006-2012),171 000 km,Mercedes-Benz GL 350 CDI BlueEff,265 KM,68 886,2010,7
+SUV,Biały,2 987 cm3,PLN,5,4x4 (stały),Diesel,Automatyczna,X166 (2012-),211 909 km,Mercedes-Benz GL 350 BlueTEC 4Matic 7G-TRONIC,258 KM,154 999,2013,7
+SUV,Czarny,3 996 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X164 (2006-2012),357 000 km,Mercedes-Benz GL 420 CDI,306 KM,62 900,2010,7
+SUV,Biały,5 461 cm3,PLN,5,4x4 (stały),Benzyna,Automatyczna,X166 (2012-),225 138 km,Mercedes-Benz GL 63 AMG,558 KM,169 900,2014,7
+SUV,Czarny,5 461 cm3,PLN,5,4x4 (stały),Benzyna+LPG,Automatyczna,X164 (2006-2012),211 000 km,Mercedes-Benz GL 500,388 KM,59 900,2007,7
+SUV,Czarny,2 996 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),109 000 km,Mercedes-Benz GL 400 4-Matic,333 KM,139 000,2016,7
+SUV,Biały,2 987 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X166 (2012-),298 000 km,Mercedes-Benz GL 350 BlueTec 4-Matic,258 KM,109 000,2013,7
+SUV,Czarny,3 996 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X164 (2006-2012),350 000 km,Mercedes-Benz GL 420 CDI,306 KM,46 125,2007,5
+SUV,Granatowy,4 663 cm3,PLN,5,4x4 (stały),Benzyna,Automatyczna,X164 (2006-2012),151 000 km,Mercedes-Benz GL 500 4-Matic,435 KM,149 500,2014,7
+SUV,Biały,5 461 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),95 326 km,Mercedes-Benz GL 500 4Matic 7G-TRONIC,388 KM,89 900,2013,7
+SUV,Bordowy,3 996 cm3,PLN,5,4x4 (stały),Diesel,Automatyczna,X164 (2006-2012),329 018 km,Mercedes-Benz GL 420 CDI,306 KM,44 950,2006,5
+SUV,Czarny,3 996 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X164 (2006-2012),290 000 km,Mercedes-Benz GL 450 CDI DPF 4Matic 7G-TRONIC,306 KM,89 900,2009,7
+SUV,Biały,4 663 cm3,PLN,5,4x4 (stały),Benzyna,Automatyczna,X164 (2006-2012),232 000 km,Mercedes-Benz GL 450 4Matic 7G-TRONIC,340 KM,79 999,2011,7
+SUV,Czarny,4 663 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),179 700 km,Mercedes-Benz GL 450 4Matic 7G-TRONIC Grand Edition,340 KM,139 900,2013,7
+SUV,Czarny,3 996 cm3,PLN,5,4x4 (dołączany automatycznie),Diesel,Automatyczna,X164 (2006-2012),480 000 km,Mercedes-Benz GL 420 CDI,306 KM,44 895,2007,5
+SUV,Biały,2 996 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),89 000 km,Mercedes-Benz GL 400 4Matic 7G-TRONIC,333 KM,169 500,2015,7
+SUV,Czarny,3 996 cm3,PLN,5,4x4 (stały),Diesel,Automatyczna,X164 (2006-2012),387 000 km,Mercedes-Benz GL 420 CDI,306 KM,77 500,2009,7
 SUV,Szary,5 461 cm3,PLN,5,4x4 (dołączany automatycznie),Benzyna,Automatyczna,X166 (2012-),179 000 km,Mercedes-Benz GL 63 AMG,558 KM,249 000,2015,7

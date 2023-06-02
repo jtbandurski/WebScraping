@@ -23,7 +23,7 @@ class OtomotoSpider(scrapy.Spider):
     allowed_domains = ["otomoto.pl"]
 
     start_urls = ["https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/"]
-                #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=2"]
+                #  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=2"]
                 #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=3",
                 #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=4",
                 #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=5"]
@@ -33,7 +33,7 @@ class OtomotoSpider(scrapy.Spider):
         xpath = '//main//article//h2//@href'
         links = response.xpath(xpath)
         
-        for l in links:
+        for l in links[:2]:
             url = response.urljoin(l.extract())
             yield scrapy.Request(url, callback=self.parse_offer)
 
@@ -87,6 +87,11 @@ class OtomotoSpider(scrapy.Spider):
         benz['color'] = response.xpath(color_xpath).get().strip()
 
         yield benz
+
+    def close(self, reason):
+        start_time = self.crawler.stats.get_value('start_time')
+        finish_time = self.crawler.stats.get_value('finish_time')
+        print("Total run time: ", finish_time-start_time)
 
 
 
