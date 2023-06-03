@@ -1,0 +1,2 @@
+Running time of Selenium scraper:
+850.18 seconds
