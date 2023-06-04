@@ -4,7 +4,7 @@ import scrapy
 class Car(scrapy.Item):
 
 
-    # The car class contains attributes of interest
+    # The car class contains data of interest
     # To keep the order of columns, setting.py is modified (FEED_EXPORT_FIELDS attribute dictates the order)
     price = scrapy.Field()
     prod_year = scrapy.Field()
