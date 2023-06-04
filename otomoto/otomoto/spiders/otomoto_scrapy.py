@@ -2,105 +2,162 @@ import scrapy
 
 
 class Car(scrapy.Item):
-    name = scrapy.Field()
+
+
+    # The car class contains attributes of interest
+    # To keep the order of columns, setting.py is modified (FEED_EXPORT_FIELDS attribute dictates the order)
     price = scrapy.Field()
-    currency = scrapy.Field()
-    generation = scrapy.Field()
     prod_year = scrapy.Field()
     mileage = scrapy.Field()
     fuel = scrapy.Field()
-    cubic_capacity = scrapy.Field()
     power = scrapy.Field()
-    gearbox = scrapy.Field()
-    drive_type = scrapy.Field()
-    body_type = scrapy.Field()
-    doors_num = scrapy.Field()
     seats_num = scrapy.Field()
     color = scrapy.Field()
+    link = scrapy.Field()
 
 
 class OtomotoSpider(scrapy.Spider):
+
+
+    # Boolean parameter for limiting the number of scraped offers to 100
+    limit_100 = True
+
+
+    # Keeping count of scraped offers to stop at 100
+    counter = 0
+
+
+    # Name of the scraper
     name = "otomoto"
+
+
+    # Allowed domain
     allowed_domains = ["otomoto.pl"]
 
-    start_urls = ["https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/"]
-                #  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=2"]
-                #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=3",
-                #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=4",
-                #   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=5"]
+
+    # Scraping the five pages of offers - each has over 20 offers, so the user can choose whether to go beyond 100
+    start_urls = ["https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/",
+                  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=2",
+                  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=3",
+                  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=4",
+                  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=5"]
 
 
     def parse(self, response):
-        xpath = '//main//article//h2//@href'
+
+
+        # The xpath of an offer (data-variant attribute helps distinguish between ads and regular offers)
+        xpath = '//main//article[@data-variant="regular"]//h2//@href'
         links = response.xpath(xpath)
-        
-        for l in links[:2]:
-            url = response.urljoin(l.extract())
-            yield scrapy.Request(url, callback=self.parse_offer)
+
+
+        # If limit_100 is set to True, the number of links is limited to 100
+        if self.limit_100 == True:
+            for l in links:
+                if self.counter < 100:
+                    self.counter += 1
+                    url = response.urljoin(l.extract())
+                    yield scrapy.Request(url, callback=self.parse_offer)
+                else:
+                    break
+        else:
+            for l in links:
+                url = response.urljoin(l.extract())
+
+                # The content of the link is requested with callback to parse_offer that contains instructions for scraping it
+                yield scrapy.Request(url, callback=self.parse_offer)           
+
 
     def parse_offer(self, response):
 
+
+        # Creating an object of car class, which attributes will be filled with scraped data
         benz = Car()
 
-        name_xpath = '//div[@class = "offer-summary"]/span[1]/div/following-sibling::text()'
-        benz['name'] = response.xpath(name_xpath).get().strip()
 
+        # Price
         price_xpath = '//span[@class = "offer-price__number"]/text()'
+        # Only the digits are extracted - because thousands are sometimes seperated by whitespace, they need to be combined
         try:
             benz['price'] = response.xpath(price_xpath).re(r"\d+")[0] + response.xpath(price_xpath).re(r"\d+")[1]
         except:
-            benz['price'] = response.xpath(price_xpath).re_first(r"\d+")
+            try:
+                # On the occasion that there is no second element, only the first one is taken
+                benz['price'] = response.xpath(price_xpath).re_first(r"\d+")
+            except:
+                benz['price'] = None
 
-        currency_xpath = '//span[@class = "offer-price__currency"]/text()'
-        benz['currency'] = response.xpath(currency_xpath).get().strip()
 
-        gen_xpath = '//span[contains(text(), "Generacja")]/following-sibling::div/a/text()'
-        benz['generation'] = response.xpath(gen_xpath).get().strip()
-
+        # Year of production
         year_xpath = '//span[contains(text(), "Rok produkcji")]/following-sibling::div/text()'
-        benz['prod_year'] = response.xpath(year_xpath).get().strip()
- 
+        try:
+            # Here, strip() is used to get rid of newlines and other whitespace characters that surround the content
+            benz['prod_year'] = response.xpath(year_xpath).get().strip()
+        except:
+            benz['prod_year'] = None
+
+
+        # Mileage
         mileage_xpath = '//span[contains(text(), "Przebieg")]/following-sibling::div/text()'
         try:
             benz['mileage'] = response.xpath(mileage_xpath).re(r"\d+")[0] + response.xpath(mileage_xpath).re(r"\d+")[1]
         except:
-            benz['mileage'] = response.xpath(mileage_xpath).re_first(r"\d+")
+            try:
+                benz['mileage'] = response.xpath(mileage_xpath).re_first(r"\d+")
+            except:
+                benz['mileage'] = None
+
+
+        #Fuel
         fuel_xpath = '//span[contains(text(), "Rodzaj paliwa")]/following-sibling::div/a/text()'
-        benz['fuel'] = response.xpath(fuel_xpath).get().strip()
-
-        cubic_xpath = '//span[contains(text(), "Pojemność skokowa")]/following-sibling::div/text()'
         try:
-            benz['cubic_capacity'] = response.xpath(cubic_xpath).re(r"\d+")[0] + response.xpath(cubic_xpath).re(r"\d+")[1]
+            benz['fuel'] = response.xpath(fuel_xpath).get().strip()
         except:
-            benz['cubic_capacity'] = response.xpath(cubic_xpath).re_first(r"\d+")
+            benz['fuel'] = None
 
+
+        # Power
         power_xpath = '//span[contains(text(), "Moc")]/following-sibling::div/text()'
-        benz['power'] = response.xpath(power_xpath).re_first(r"\d+")
+        try:
+            benz['power'] = response.xpath(power_xpath).re_first(r"\d+")
+        except:
+            benz['power'] = None
 
-        gearbox_xpath = '//span[contains(text(), "Skrzynia biegów")]/following-sibling::div/a/text()'
-        benz['gearbox'] = response.xpath(gearbox_xpath).get().strip()
 
-        drive_xpath = '//span[contains(text(), "Napęd")]/following-sibling::div/a/text()'
-        benz['drive_type'] = response.xpath(drive_xpath).get().strip()
-
-        body_xpath = '//span[contains(text(), "Typ nadwozia")]/following-sibling::div/a/text()'
-        benz['body_type'] = response.xpath(body_xpath).get().strip()
-
-        doors_xpath = '//span[contains(text(), "Liczba drzwi")]/following-sibling::div/a/text()'
-        benz['doors_num'] = response.xpath(doors_xpath).get().strip()
-
+        # Number of seats
         seats_xpath = '//span[contains(text(), "Liczba miejsc")]/following-sibling::div/text()'
-        benz['seats_num'] = response.xpath(seats_xpath).get().strip()
+        try:
+            benz['seats_num'] = response.xpath(seats_xpath).get().strip()
+        except:
+            benz['seats_num'] = None
 
+
+        # Color
         color_xpath = '//span[contains(text(), "Kolor")]/following-sibling::div/a/text()'
-        benz['color'] = response.xpath(color_xpath).get().strip()
+        try:
+            benz['color'] = response.xpath(color_xpath).get().strip()
+        except:
+            benz['color'] = None
+
+
+        # Link to the offer
+        benz['link'] = response.url
+
 
         yield benz
 
-    def close(self, reason):
-        start_time = self.crawler.stats.get_value('start_time')
-        finish_time = self.crawler.stats.get_value('finish_time')
-        print("Total run time: ", finish_time-start_time)
+
+    # Saving the execution time of the spider when closing
+    def close(self):
+
+
+        start = self.crawler.stats.get_value('start_time')
+        end = self.crawler.stats.get_value('finish_time')
+
+
+        with open('running_time.txt', 'w') as f:
+            f.write('Running time of Scrapy spider:\n')
+            f.write(f"{round(end-start,2)} seconds")
 
 
 
