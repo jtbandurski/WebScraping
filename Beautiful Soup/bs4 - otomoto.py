@@ -101,6 +101,8 @@ for link in links_list:
     # add new row to df
     df.loc[len(df)] = row
 
+    time.sleep(5)
+    
 # save as csv
 df.to_csv("offers.csv", index=False, header=True)
 
