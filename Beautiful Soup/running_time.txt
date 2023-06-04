@@ -1,2 +1,2 @@
 Running time of BeautifulSoup scraper:
-61.34 seconds
+563.05 seconds
