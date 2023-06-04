@@ -150,14 +150,11 @@ class OtomotoSpider(scrapy.Spider):
     # Saving the execution time of the spider when closing
     def close(self):
 
-
+        # Extracting  start and finish time with the crawler.stats attribute
         start = self.crawler.stats.get_value('start_time')
         end = self.crawler.stats.get_value('finish_time')
 
 
         with open('running_time.txt', 'w') as f:
             f.write('Running time of Scrapy spider:\n')
-            f.write(f"{round(end-start,2)} seconds")
-
-
-
+            f.write(f"{round((end-start).seconds + (end-start).microseconds/1000000, 2)} seconds")

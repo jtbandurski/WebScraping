@@ -1,1 +1,2 @@
 Running time of Scrapy spider:
+674.24 seconds
