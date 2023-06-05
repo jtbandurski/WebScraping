@@ -16,7 +16,7 @@ class Car(scrapy.Item):
     link = scrapy.Field()
 
 
-class OtomotoSpider(scrapy.Spider):
+class ScrapySpider(scrapy.Spider):
 
 
     # Boolean parameter for limiting the number of scraped offers to 100

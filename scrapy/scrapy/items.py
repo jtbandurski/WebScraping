@@ -6,7 +6,7 @@
 import scrapy
 
 
-class OtomotoItem(scrapy.Item):
+class ScrapyItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
