@@ -3,7 +3,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
 import os
-from collections import Counter
 from tqdm import tqdm
 import pandas as pd
 
@@ -20,7 +19,6 @@ driver = webdriver.Firefox(options = options, service=ser)
 # limit to 100 links
 
 
-# url = "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/"
 sites = ["https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/",
                  "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=2",
                   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=3",
@@ -28,11 +26,10 @@ sites = ["https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa/",
                   "https://www.otomoto.pl/osobowe/mercedes-benz/gl-klasa?page=5"]
 # Actual program:
 time.sleep(5)
-# Locate links to scrape
 links_list = []
 # flag for breaking outer loop
 breakout = False
-# Iterate over given sites
+# Iterate over given sites and locate links to scrape
 print("Iterating over given sites: ")
 for i in tqdm(range(len(sites))):
     # Go to website
@@ -46,10 +43,10 @@ for i in tqdm(range(len(sites))):
     except:
         # no cookies -> do nothing
         pass
-    # find all objects with offers
+    # find all objects with offers; regular not gallery
     links = driver.find_elements(By.XPATH, '//main//article[@data-variant="regular"]//h2//a')
     for link in links:
-        # get all links to offers
+        # get all links to offers from WebElement objects
         links_list.append(link.get_attribute('href'))
         # if limit_100 is enabled then stop after reaching 100 links
         if (limit_100 == True) and (len(links_list) == 100):
@@ -73,6 +70,7 @@ for i in tqdm(range(len(links_list))):
     # price
     try:
         txt = driver.find_element(By.XPATH, '//span[@class = "offer-price__number"]').get_attribute("innerText")
+        # example txt: "139 000 PLN"
         # quite complex but it gets rid of currency string and leaves only price
         row.append(int(''.join([s for s in txt.split() if s.isdigit()])))
     except:
