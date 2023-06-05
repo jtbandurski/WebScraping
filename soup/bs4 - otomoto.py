@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import pandas as pd
+from tqdm import tqdm
 
 start = time.time()
 
@@ -51,10 +52,9 @@ df = pd.DataFrame(
 )
 
 # Iterate over offer links
-for link in links_list:
+for link in tqdm(links_list):
     response = requests.get(link)
     soup = BeautifulSoup(response.content, "html.parser")
-    
     row = [None] * 8  # Initialize the row with None values
     
     # price
@@ -62,6 +62,17 @@ for link in links_list:
     if price_element:
         txt = price_element.get_text(strip=True)
         row[0] = int(''.join([s for s in txt.split() if s.isdigit()]))
+    else:
+        for retry in range(3):
+            time.sleep(5)
+            response = requests.get(link)
+            soup = BeautifulSoup(response.content, "html.parser")
+            price_element = soup.select_one("span.offer-price__number")
+            if price_element:
+                txt = price_element.get_text(strip=True)
+                row[0] = int(''.join([s for s in txt.split() if s.isdigit()]))
+                break
+
 
     # mileage
     mileage_element = soup.select_one("span:-soup-contains('Przebieg') + div")
@@ -98,6 +109,8 @@ for link in links_list:
     # link
     row[7] = link
     
+    print(row)
+
     # add new row to df
     df.loc[len(df)] = row
 
