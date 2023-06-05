@@ -1,4 +1,4 @@
-# Scrapy settings for scrapy project
+# Scrapy settings for Scrapy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,15 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "scrapy"
+BOT_NAME = "Scrapy"
 
-SPIDER_MODULES = ["scrapy.spiders"]
-NEWSPIDER_MODULE = "scrapy.spiders"
+SPIDER_MODULES = ["Scrapy.spiders"]
+NEWSPIDER_MODULE = "Scrapy.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0"
-#USER_AGENT = "scrapy (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -46,13 +45,13 @@ DOWNLOAD_DELAY = 5
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "scrapy.middlewares.ScrapySpiderMiddleware": 543,
+#    "Scrapy.middlewares.ScrapySpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "scrapy.middlewares.ScrapyDownloaderMiddleware": 543,
+#    "Scrapy.middlewares.ScrapyDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -64,7 +63,7 @@ DOWNLOAD_DELAY = 5
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "scrapy.pipelines.ScrapyPipeline": 300,
+#    "Scrapy.pipelines.ScrapyPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
