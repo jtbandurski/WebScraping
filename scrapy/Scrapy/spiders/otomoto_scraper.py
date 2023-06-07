@@ -4,7 +4,7 @@ import scrapy
 class Car(scrapy.Item):
 
 
-    # The car class contains data of interest
+    # The "Car" class contains data of interest
     # To keep the order of columns, setting.py is modified (FEED_EXPORT_FIELDS attribute dictates the order)
     price = scrapy.Field()
     prod_year = scrapy.Field()
@@ -71,18 +71,18 @@ class OtomotoSpider(scrapy.Spider):
     def parse_offer(self, response):
 
 
-        # Creating an object of car class, which attributes will be filled with scraped data
+        # Creating an object of "Car" class, which attributes will be filled with scraped data
         benz = Car()
 
 
         # Price
         price_xpath = '//span[@class = "offer-price__number"]/text()'
-        # Only the digits are extracted - because thousands are sometimes seperated by whitespace, they need to be combined
+        # Only the digits are extracted - thousands are sometimes seperated by whitespace, so they need to be combined
         try:
             benz['price'] = response.xpath(price_xpath).re(r"\d+")[0] + response.xpath(price_xpath).re(r"\d+")[1]
         except:
             try:
-                # On the occasion that there is no second element, only the first one is taken
+                # On the occasion that there is no second element, only the first one is extracted
                 benz['price'] = response.xpath(price_xpath).re_first(r"\d+")
             except:
                 benz['price'] = None
@@ -150,7 +150,7 @@ class OtomotoSpider(scrapy.Spider):
     # Saving the execution time of the spider when closing
     def close(self):
 
-        # Extracting  start and finish time with the crawler.stats attribute
+        # Extracting start and finish time with the crawler.stats attribute
         start = self.crawler.stats.get_value('start_time')
         end = self.crawler.stats.get_value('finish_time')
 
