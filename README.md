@@ -9,8 +9,10 @@
 
 
 ## Scrapy
-
-
+1. Activate python environemnt in the location of *./scrapy/Scrapy/spiders/otomoto_scraper.py* file
+2. Run the following command in the terminal *scrapy crawl otomoto -O offers.csv*
+3. Wait for the scraper to finish
+4. See output in **./scrapy/Scrapy/spiders/offers.csv** and **./scrapy/Scrapy/spiders/running_time.txt** files
 
 
 ## Selenium
